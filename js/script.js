@@ -176,22 +176,38 @@
     var body = undefined;
     var menu = undefined;
     var menuItems = undefined;
+
     var init = function init() {
       body = document.querySelector("body");
       menu = document.querySelector(".menu-btn");
-      menuItems = document.querySelectorAll(".nav__list-item");
+      menuItems = document.querySelectorAll(".nav__list-item a"); // Targetkan link dalam item menu
       applyListeners();
     };
+
     var applyListeners = function applyListeners() {
+      // Listener untuk tombol toggle
       menu.addEventListener("click", function () {
         return toggleClass(body, "nav-active");
       });
+
+      // Listener untuk setiap item menu
+      menuItems.forEach(function (item) {
+        item.addEventListener("click", function () {
+          if (body.classList.contains("nav-active")) {
+            body.classList.remove("nav-active"); // Hapus kelas saat link diklik
+          }
+        });
+      });
     };
+
     var toggleClass = function toggleClass(element, stringClass) {
-      if (element.classList.contains(stringClass))
+      if (element.classList.contains(stringClass)) {
         element.classList.remove(stringClass);
-      else element.classList.add(stringClass);
+      } else {
+        element.classList.add(stringClass);
+      }
     };
+
     init();
   };
 
